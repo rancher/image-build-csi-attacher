@@ -16,8 +16,11 @@ PKG ?= github.com/kubernetes-csi/external-attacher
 BUILD_META=-build$(shell date +%Y%m%d)
 TAG ?= ${GITHUB_ACTION_TAG}
 
+# Instead of tracking upstream kubernetes-csi, we track the latest tag the 
+# upstream vsphere chart is packaging. Example:
+# https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/v3.7.3/manifests/vanilla/vsphere-csi-driver.yaml#L244
 ifeq ($(TAG),)
-TAG := v4.12.0$(BUILD_META)
+TAG := $(shell cat TAG)$(BUILD_META)
 endif
 
 ifeq (,$(filter %$(BUILD_META),$(TAG)))

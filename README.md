@@ -18,7 +18,7 @@ make build-image-all          # build for the host architecture
 make image-scan               # run Trivy against the built image(s)
 ```
 
-The upstream version is controlled by the `TAG` variable in the [`Makefile`](./Makefile).
+The upstream version is controlled by the [`TAG`](./TAG) file and read by the `Makefile`.
 A `-buildYYYYMMDD` suffix (`BUILD_META`) is appended automatically and is required on
 release tags.
 
@@ -26,7 +26,7 @@ release tags.
 
 [Updatecli](./updatecli) keeps two things current via daily PRs:
 
-- the upstream `external-attacher` version (`Makefile` `TAG`), and
+- the packaged `csi-attacher` version (`TAG`), and
 - the `rancher/hardened-build-base` version (`Dockerfile` `GO_IMAGE`).
 
 ## CI
