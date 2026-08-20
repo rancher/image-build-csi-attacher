@@ -48,12 +48,6 @@ push-image-csi-attacher:
 		--push \
 		.
 
-.PHONY: build-image-all
-build-image-all: build-image-csi-attacher
-
-.PHONY: push-image-all
-push-image-all: push-image-csi-attacher
-
 .PHONY: image-scan
 image-scan:
 	trivy image --severity $(SEVERITIES) --no-progress --ignore-unfixed $(REPO)/hardened-csi-attacher:$(TAG)
