@@ -33,6 +33,5 @@ RUN if [ "$(xx-info arch)" = "amd64" ]; then \
 # CSI Attacher Sidecar
 FROM ${BCI_IMAGE} AS csi-attacher
 LABEL org.opencontainers.image.description="CSI Attacher Sidecar"
-COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 COPY --from=builder /usr/local/bin/csi-attacher /csi-attacher
 ENTRYPOINT ["/csi-attacher"]
