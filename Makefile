@@ -12,7 +12,6 @@ ifndef TARGET_PLATFORMS
 endif
 
 REPO ?= ghcr.io/rancher
-PKG ?= github.com/kubernetes-csi/external-attacher
 BUILD_META=-build$(shell date +%Y%m%d)
 TAG ?= ${GITHUB_ACTION_TAG}
 
@@ -29,7 +28,6 @@ build-image-csi-attacher: IMAGE = $(REPO)/hardened-csi-attacher:$(TAG)
 build-image-csi-attacher:
 	docker buildx build \
 		--platform=$(TARGET_PLATFORMS) \
-		--build-arg PKG=$(PKG) \
 		--build-arg TAG=$(TAG:$(BUILD_META)=) \
 		--target csi-attacher \
 		--tag $(IMAGE) \
@@ -44,7 +42,6 @@ push-image-csi-attacher:
 		--sbom=true \
 		--attest type=provenance,mode=max \
 		--platform=$(TARGET_PLATFORMS) \
-		--build-arg PKG=$(PKG) \
 		--build-arg TAG=$(TAG:$(BUILD_META)=) \
 		--target csi-attacher \
 		--tag $(IMAGE) \
@@ -65,7 +62,6 @@ image-scan:
 log:
 	@echo "TARGET_PLATFORMS=$(TARGET_PLATFORMS)"
 	@echo "REPO=$(REPO)"
-	@echo "PKG=$(PKG)"
 	@echo "TAG=$(TAG:$(BUILD_META)=)"
 	@echo "BUILD_META=$(BUILD_META)"
 	@echo "UNAME_M=$(UNAME_M)"
