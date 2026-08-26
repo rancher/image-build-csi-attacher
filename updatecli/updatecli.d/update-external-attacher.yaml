@@ -30,7 +30,6 @@ targets:
     kind: file
     sourceid: external-attacher
     scmid: default
-    disablesourceinput: true
     spec:
       file: TAG
       matchpattern: '(?m)^(.+)$'
