@@ -55,11 +55,12 @@ push-image-csi-attacher:
 image-scan:
 	@set -eu; \
 	if [ -z "$${TRIVY_VEX+x}" ]; then \
-		curl -fsSOL "$(VEX_REPORT_URL)"; \
-		if [ -s "$(VEX_REPORT_GZ)" ]; then \
+		if [ ! -f "$(VEX_REPORT)" ]; then \
+			curl -fsSOL "$(VEX_REPORT_URL)"; \
 			gzip -d "$(VEX_REPORT_GZ)"; \
-			export TRIVY_VEX="$(VEX_REPORT)"; \
+			rm -f "$(VEX_REPORT_GZ)"; \
 		fi; \
+		export TRIVY_VEX="$(VEX_REPORT)"; \
 	fi; \
 	trivy image --severity $(SEVERITIES) --no-progress --ignore-unfixed $(REPO)/hardened-csi-attacher:$(TAG)
 
